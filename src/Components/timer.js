@@ -43,7 +43,7 @@ const Timer = () => {
               </button>
             </div>
             <div className="modal-body">
-              <p>Please wait for {remainingTime} seconds...</p>
+              <p>Please wait....</p>
             </div>
           </div>
         </div>
