@@ -20,7 +20,8 @@ function Defence() {
                 console.log("Fetch Failed");
             }
             const dat = await Response.json();
-            const newTab = window.open(dat.destination_link, '_blank');
+            console.log(dat.destination_url);
+            const newTab = window.open(dat.destination_url, '_blank');
         }
         catch (e) {
             console.log(e);
@@ -35,11 +36,12 @@ function Defence() {
         formData.append('file', file);
 
         try {
-            const Response = await fetch('http://65.1.91.14:8085/upload', {
+            const Response = await fetch('http://13.232.174.98:8088/upload', {
                 method: 'POST',
                 body: formData,
             });
-
+            const dat = await Response.json();
+            console.log(dat)
             if (Response.ok) {
                 console.log('File uploaded successfully!');
                 setUploaded(true)
@@ -54,8 +56,8 @@ function Defence() {
         const file = event.target.files[0];
         console.log(file)
         if (file) {
-            // uploadFile(file);
-            setTrigger(true);
+            uploadFile(file);
+            // setTrigger(true);
         }
     }
     const handleDownloadClick = (event) => {
@@ -67,9 +69,9 @@ function Defence() {
                 <h1 className="col display-6 p-2 ms-3 me-auto col-12 col-sm-auto ps-4">Defence</h1>
                 <div className="col-12 col-md-3 d-flex justify-content-end">
 
-                    <button className="btn btn-primary me-2 btn-sm" onClick={handleDownloadClick} type="button">
+                    <a href='http://65.1.3.154:8089/download' className="btn btn-primary me-2 btn-sm" onClick={handleDownloadClick} type="button">
                         Download File
-                    </button>
+                    </a>
                     <input
                         type="file"
                         accept=".js,.java"
