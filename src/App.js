@@ -1,25 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Container, Row, Card, Button } from 'react-bootstrap';
 import './App.css';
+import Timer from './Components/timer';
+import Dashboard from './Components/Dashboard';
+import { Routes, Route } from 'react-router';
+import Lab from './Components/Lab';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="app">
+      <Routes>
+        <Route path='/' element={<Dashboard />} />
+        <Route path='/lab' element={<Lab />} />
+      </Routes>
+    </Container>
   );
-}
+};
 
 export default App;
