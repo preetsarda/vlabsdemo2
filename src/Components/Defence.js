@@ -79,7 +79,7 @@ function Defence() {
           <a href="http://65.1.3.154:8089/download" className="btn btn-primary me-2" onClick={handleDownloadClick} disabled={!downloaded}>
             Download File
           </a>
-          <label htmlFor="file-upload-input" className="btn btn-primary me-2" disabled={!downloaded}>
+                  <label htmlFor="file-upload-input" type="button" className="btn btn-primary me-2" disabled={!downloaded}>
             Upload File
             <input
               type="file"
@@ -91,7 +91,7 @@ function Defence() {
             />
           </label>
           <button className="btn btn-primary" disabled={!uploaded} onClick={starts}>
-            Click Me
+                      Submit
           </button>
         </div>
       </div>

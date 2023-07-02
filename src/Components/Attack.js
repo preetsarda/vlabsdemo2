@@ -8,9 +8,9 @@ function Attack() {
   async function starts() {
     console.log("A")
     setTrigger(true);
-    setTimeout(() => {
-      setTrigger(false);
-    }, 18000);
+    // setTimeout(() => {
+    //   setTrigger(false);
+    // }, 18000);
 
     try {
       const response = await fetch("http://13.127.3.114:8080/connect", {
@@ -22,10 +22,10 @@ function Attack() {
 
       const data = await response.json();
       console.log(data);
-      const newTab = window.open(data.destination_url, '_blank');
-      setTrigger(false);
+      window.open(data.destination_url, '_blank');
       setAttacked(true);
       // newTab.focus();
+      setTrigger(false);
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +37,7 @@ function Attack() {
       <div className="row justify-content-center mt-4">
         <div className="col-auto">
           <button className="btn btn-primary" onClick={starts} disabled={attacked}>
-            Click Me
+            Start
           </button>
         </div>
       </div>
