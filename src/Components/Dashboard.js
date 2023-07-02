@@ -15,15 +15,6 @@ const Dashboard = () => {
                         </Card.Body>
                     </Card>
                 </Row>
-                <Row>
-                    <Card className="my-2">
-                        <Card.Body>
-                            <Card.Title>Lab 2</Card.Title>
-                            <Card.Text>content</Card.Text>
-                            <Button variant="primary">Click Me</Button>
-                        </Card.Body>
-                    </Card>
-                </Row>
             </Row>
         </div>)
 }
