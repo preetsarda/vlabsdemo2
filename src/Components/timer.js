@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [remainingTime, setRemainingTime] = useState(180); // 3 minutes in seconds
+  const [remainingTime, setRemainingTime] = useState(120);
   const [timerFinished, setTimerFinished] = useState(false);
 
   useEffect(() => {
@@ -37,13 +37,13 @@ const Timer = () => {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Modal Title</h5>
+              <h5 className="modal-title">Please Wait</h5>
               <button type="button" className="close" onClick={timerFinished ? closeModal : null}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
-              <p>Please wait....</p>
+              <p>Starting an instance<br />Approx wait time : {Math.floor(remainingTime / 60)} minutes {remainingTime % 60} seconds</p>
             </div>
           </div>
         </div>

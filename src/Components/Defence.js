@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import Timer from './timer';
 
-function Defence() {
+const Defence = ({ disabled }) => {
   const [trigger, setTrigger] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [uploaded, setUploaded] = useState(false);
 
-  async function starts() {
+  const starts = async () => {
     setTrigger(true);
 
     try {
-      const response = await fetch("http://65.1.91.14:8085/connect", {
+      const response = await fetch("http://13.126.239.109:8085/defence/connect", {
         crossDomain: true,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -25,9 +25,10 @@ function Defence() {
 
       const data = await response.json();
       console.log(data.destination_url);
-      const newTab = window.open(data.destination_url, '_blank');
+      window.open(data.destination_url, '_blank');
     } catch (error) {
       console.log(error);
+      alert("Failed to start instance\nPlease refresh and try again")
     } finally {
       setTrigger(false);
     }
@@ -39,29 +40,23 @@ function Defence() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://13.232.174.98:8088/upload', {
+      const response = await fetch('http://13.126.239.109:8085/upload', {
         method: 'POST',
         body: formData,
       });
-
       const data = await response.json();
       console.log(data);
-
-      if (response.ok) {
-        console.log('File uploaded successfully!');
-        setUploaded(true);
-      } else {
-        console.log('Error uploading file');
-      }
+      console.log('File uploaded successfully!');
+      alert("File uploaded Successsfully!");
+      setUploaded(true);
     } catch (error) {
       console.log('An error occurred:', error);
+      alert("Error uploading please try again");
     }
   }
-
   const handleUploadClick = (event) => {
     const file = event.target.files[0];
     console.log(file);
-
     if (file) {
       uploadFile(file);
     }
@@ -76,10 +71,10 @@ function Defence() {
       <h1 className="display-6 text-center">Defence</h1>
       <div className="row justify-content-center mt-4">
         <div className="col-auto">
-          <a href="http://65.1.3.154:8089/download" className="btn btn-primary me-2" onClick={handleDownloadClick} disabled={!downloaded}>
+          <a href="http://13.126.239.109:8085/download" className={`btn btn-primary me-2 ${uploaded || disabled ? 'disabled' : ''}`} onClick={handleDownloadClick} aria-disabled={uploaded} download>
             Download File
           </a>
-                  <label htmlFor="file-upload-input" type="button" className="btn btn-primary me-2" disabled={!downloaded}>
+          <label htmlFor="file-upload-input" type="button" className={`btn btn-primary me-2 ${!downloaded || uploaded ? 'disabled' : ''}`} aria-disabled={!downloaded}>
             Upload File
             <input
               type="file"
@@ -87,11 +82,11 @@ function Defence() {
               style={{ display: 'none' }}
               id="file-upload-input"
               onChange={handleUploadClick}
-              disabled={!downloaded}
+              disabled={!downloaded || uploaded}
             />
           </label>
           <button className="btn btn-primary" disabled={!uploaded} onClick={starts}>
-                      Submit
+            Submit
           </button>
         </div>
       </div>

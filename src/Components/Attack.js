@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Timer from './timer';
 
-function Attack() {
+const Attack = ({ onCompleted }) => {
   const [trigger, setTrigger] = useState(false);
   const [attacked, setAttacked] = useState(false);
 
-  async function starts() {
+  const starts = async () => {
     console.log("A")
     setTrigger(true);
     // setTimeout(() => {
@@ -13,21 +13,24 @@ function Attack() {
     // }, 18000);
 
     try {
-      const response = await fetch("http://13.127.3.114:8080/connect", {
+      const response = await fetch("http://13.126.239.109:8085/attack/connect", {
         crossDomain: true,
+        mode: 'cors',
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
       });
-
       const data = await response.json();
       console.log(data);
       window.open(data.destination_url, '_blank');
       setAttacked(true);
+      onCompleted();
       // newTab.focus();
-      setTrigger(false);
     } catch (error) {
       console.log(error);
+      alert("Failed to start instance\nPlease try again");
+    } finally {
+      setTrigger(false);
     }
   }
 
