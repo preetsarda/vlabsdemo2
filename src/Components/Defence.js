@@ -5,6 +5,7 @@ const Defence = ({ disabled }) => {
   const [trigger, setTrigger] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [uploaded, setUploaded] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const starts = async () => {
     setTrigger(true);
@@ -26,9 +27,12 @@ const Defence = ({ disabled }) => {
       const data = await response.json();
       console.log(data.destination_url);
       window.open(data.destination_url, '_blank');
+      setSubmitted(true);
     } catch (error) {
       console.log(error);
       alert("Failed to start instance\nPlease refresh and try again")
+      setSubmitted(false);
+
     } finally {
       setTrigger(false);
     }
@@ -85,7 +89,7 @@ const Defence = ({ disabled }) => {
               disabled={!downloaded || uploaded}
             />
           </label>
-          <button className="btn btn-primary" disabled={!uploaded} onClick={starts}>
+          <button className="btn btn-primary" disabled={!uploaded || submitted} onClick={starts} >
             Submit
           </button>
         </div>
